@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/style.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="world">
+
+<div class="forms">
+<form class="book-creator" id="book-creator">
+    <input id="title" type="text" placeholder="Book title">
+    <input id="bookid" type="text" placeholder="Book ID">
+    <input id="released" type="text" placeholder="Release year">
+    <select name="author" id="book-creator__author">
+        <option value="author">Author</option>
+    </select>
+    <select name="genre" id="book-creator__genre">
+        <option value="genre">Genre</option>
+    </select>
+        <input id="submitbook" type="submit" value="Create book">
+</form>
+
+<form class="author-form" id="author-form">
+    <input id="authorfname" type="text" name="first_name" placeholder="Author first name">
+    <input id="authorlname" type="text" name="last_name" placeholder="Author last name">
+    <input id="authorid" type="text" name="first_name" placeholder="Author ID">
+    <input type="submit" value="create author">
+</form>
+
+<form class="genre-form" id="genre-form">
+    <input id="genre" type="text" name="genre" placeholder="Genre">
+    <input id="genreid" type="text" name="genreid" placeholder="Genre ID">
+    <input type="submit" value="create genre">
+</form>
+</div>
+
+<div class="table">
+    <table>
+      <thead>
+          <tr>
+              <td>Title</td>
+              <td>Book ID</td>
+              <td>Release year</td>
+              <td>Author first name </td>
+              <td>Author last name</td>
+              <td>Author ID</td>
+              <td>Genre</td>
+              <td>Genre ID</td>
+              <td class="table__data-delete">x</td>
+          </tr>
+        </thead>
+      <tbody  id="table__body">
+      </tbody>
+    </table>
+  </div>
+    <script src="index.js"></script>
+</body>
+</html>
