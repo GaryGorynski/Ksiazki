@@ -10,6 +10,10 @@ class Author  {
     this.authorlname = authorlname;
     this.authorid = authorid;
 }
+
+  get authorFullName () {
+    return `${this.authorfname} ${this.authorlname}`;
+  }
 }
 
 class Genre {
@@ -20,11 +24,11 @@ class Genre {
 }
 class Book {
   
-     constructor(title, bookid, released, author, genre){
+     constructor(title, bookid, released, authorid, genre){
         this.title = title;
         this.bookid = bookid;
         this.released = released; 
-        this.author = author;
+        this.authorid = authorid;
         this.genre = genre;
     
        
@@ -36,14 +40,17 @@ class UI {
    addAuthor() {
         const authorcreator = document.getElementById('book-creator__author');
         const newOption = document.createElement('option');
-        newOption.innerHTML = `<option value="${authors[authors.length-1].authorlname}">${authors[authors.length-1].authorlname}</option>`;
-    authorcreator.appendChild(newOption);             
+        newOption.value = authors[authors.length - 1].authorid;
+        newOption.innerHTML = authors[authors.length - 1].authorFullName;
+        // newOption.innerHTML = `<option value="${authors[authors.length-1].authorid}">${authors[authors.length-1].authorlname}</option>`;
+      authorcreator.appendChild(newOption);             
     }
+
    addGenre() {
-       const genrecreator= document.getElementById('book-creator__genre');
-       const newOption = document.createElement('option');
-        newOption.innerHTML = `<option value="${genres[genres.length-1].genre}">${genres[genres.length-1].genre}</option>`;
-       genrecreator.appendChild(newOption);
+      const genrecreator= document.getElementById('book-creator__genre');
+      const newOption = document.createElement('option');
+      newOption.innerHTML = `<option value="${genres[genres.length-1].genreid}">${genres[genres.length-1].genre}</option>`;
+      genrecreator.appendChild(newOption);
    }
 
   clearFields() {
@@ -52,15 +59,16 @@ class UI {
         const released = document.getElementById('released').value = '';
     }
     addBook(book){
+      const bookAuthor = authors.find(author => author.authorid === book.authorid);
         const list = document.getElementById('table__body');
         const row = document.createElement('tr'); 
         row.innerHTML = `
         <td>${book.title}</td>
         <td>${book.bookid}</td>
         <td>${book.released}</td>
-        <td>${book.author.authorfname}</td>
-        <td>${book.author.authorlname}</td>
-        <td>${book.author.authorid}</td>
+        <td>${bookAuthor.authorfname}</td>
+        <td>${bookAuthor.authorlname}</td>
+        <td>${book.authorid}</td>
         <td>${book.genre}</td>
         <td>${book.genreid}</td>
         <td><a href="" class="delete">X</a></td>
@@ -103,24 +111,31 @@ document.getElementById('genre-form').addEventListener('submit', function(e){
 
 
 // Book create
-document.getElementById('book-creator').addEventListener('submit', function(e){
-    const title = document.getElementById('title').value;
-    const bookid = document.getElementById('bookid').value;
-    const released = document.getElementById('released').value;
-    const author = /*'nie umiem tu przypisać autora' */authors[0];
-    const genre = /* 'nie umiem tu przypisać gatunku' */'dsfdfs'
+document.getElementById('book-creator').addEventListener('submit', function(e) {
+  e.preventDefault();
+  console.log({ e });
+  const formData = new FormData(e.target);
+  const title = formData.get('title');
+  const id = formData.get('id');
+  const released = formData.get('released');
+  const authorid = formData.get('author');
+  const genre = formData.get('genre');
+//     const title = document.getElementById('title').value;
+//     const bookid = document.getElementById('bookid').value;
+//     const released = document.getElementById('released').value;
+//     const author = /*'nie umiem tu przypisać autora' */authors[0];
+//     const genre = /* 'nie umiem tu przypisać gatunku' */'dsfdfs'
     
 
 
-  const book = new Book(title, bookid, released, author, genre);
+  const book = new Book(title, id, released, authorid, genre);
 
   const ui = new UI();
  
 
-//Methods
+// //Methods
 booklist.push(book);
 ui.addBook(book); 
 ui.clearFields();
-e.preventDefault();
 console.log(book)
 })
